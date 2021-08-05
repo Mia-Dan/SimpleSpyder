@@ -8,6 +8,11 @@ def filename2dir(filename):
     file_path = os.path.join(code_dir, filename)   
     return file_path
 
+def save_to_local(text, filename):
+    file_path = filename2dir(filename)
+    with open(file_path,'w') as f:
+        f.write(text)
+
 # 获得某页面的html内容
 def get_html_from_url(rooturl, encoding="utf-8"):
     # 默认解码方式utf-8
@@ -48,15 +53,11 @@ def fetch_page_title(html):
     title = soup.title.string
     return title
 
-# WO: 由url list
-# def create_contents(filename, urls):
-#     file_path = filename2dir(filename)
-#     with open(file_path,'w') as f:
-#         i = 0
-#         for url in urls: 
-#             title = fetch_page_title(html)
-#             f.write(i + ' ' + title + '\n')
-#             i = i+1
+def filter_content_for_fairytale(html):
+    soup = bs(html, features="lxml")
+    target_index = 5 # 观察html文件得
+    temp_tag = soup.body.contents[target_index]
+    return temp_tag
 
 # 为已经下载的页面生成目录。
 ## 更好的方法是，获取页面（以变量形式存在）后直接soup解析出它的title，再保存。
@@ -66,7 +67,7 @@ def create_contents(urls):
     with open(file_path,'w') as f:
         i = 0
         for url in urls: 
-            html = get_html_from_local(str(i)+'.txt') # 假定所有页面以 1.txt 样式命名
+            html = get_html_from_local(str(i)+'.html') # 假定所有页面以 1.html 样式命名
             title = fetch_page_title(html)
             f.write(str(i) + ' ' + title + '\n')
             i = i+1
@@ -82,40 +83,37 @@ if __name__ == '__main__':
     urls = filterurl(result) # filter urls
     # print(urls)
 
-    # # 2. 下载所有链接页面
-    # i=0
-    # for url in urls:
-    #     tmphtml = get_html_from_url(url)
-    #     filewriter = open(str(i)+'.html','w')
-    #     filewriter.write(tmphtml +'\n')
-    #     filewriter.close()
-    #     # 显示进度
-    #     i=i+1
-    #     print(i)
+    # 2. 下载所有链接页面,并去除不必要页面的部分（避免阅读时浏览器解析本地页面过慢）
+    i=0
+    for url in urls:
+        tmphtml = get_html_from_url(url)
+        temp_tag = filter_content_for_fairytale(tmphtml)
+        temp_str = temp_tag.prettify()
+        filename = str(i)+'.html'
+        save_to_local(temp_str, filename)
+        i=i+1
+        print(i) # 显示进度
 
-    # # 3. 生成下载页面的目录
-    # create_contents(urls)
+    # 3. 生成下载页面的目录
+    create_contents(urls)
 
+    # # 其他尝试
+    # soup = bs(html, features="lxml")
 
-    soup = bs(html, features="lxml")
+    # # filename = 'prettifed.html'
+    # # file_path = filename2dir(filename)
+    # # with open(file_path,'w') as f:
+    # #     f.write(soup.prettify())
+    # # node = <a href="http://computationaltales.blogspot.com/2011/03/loops-and-making-horseshoe.html">Loops and Making Horseshoes</a>
 
-    # filename = 'prettifed.html'
-    # file_path = filename2dir(filename)
-    # with open(file_path,'w') as f:
-    #     f.write(soup.prettify())
-    # node = <a href="http://computationaltales.blogspot.com/2011/03/loops-and-making-horseshoe.html">Loops and Making Horseshoes</a>
+    # text1 = "Loops and Making Horseshoes"
+    # x1 = soup.find_all(recursive = True, text = text1)
+    # print(x1) #... 这有什么用
+    # print(type(x1)) 
+    # # y1 = x1[0].find_parents()
+    # # print(y1)
 
-    text1 = "Loops and Making Horseshoes"
-
-    x1 = soup.find_all(recursive = True, text = text1)
-    print(x1)
-    print(type(x1))
-    # y1 = x1[0].find_parents()
-    # print(y1)
-
-
-    # 其他尝试
-    # soup.get_text() 对于本页面的效果不太好，太多导航栏内容混进去了
+    # # soup.get_text() 对于本页面的效果不太好：丢失文本格式，太多导航栏内容混进去了
 
     print('done')
 
