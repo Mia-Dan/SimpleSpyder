@@ -50,49 +50,14 @@ def save_taglist_to_local(taglist, filename):
 		str1 = str1 + '\n' + tag1.prettify()
 	save_to_local(str1, filename)
 
-# # prototype 0807-1
-# # 测试用例
-# html = get_html_from_local("10.html")
-# soup = bs(html, features="lxml")
-# # manually: 通过观察html文件，分析出目标结点的特征（e.g. tag的class）
-# # 取出这些结点，保存为列表taglist
-# taglist = []
-# taglist.extend(soup.find_all(class_ = 'date-header')) 
-# taglist.extend(soup.find_all(class_ = 'post-title entry-title')) 
-# taglist.extend(soup.find_all(class_ = 'post-body entry-content')) 
-# taglist.extend(soup.find_all(class_ = 'comments')) 
-# taglist.extend(soup.find_all(class_ = 'post-labels')) 
-
-# # 展示列表taglist，检查是否正确
-# i = 0; ylist = []
-# for tag1 in taglist:
-# 	# show
-# 	os.system("clear")
-# 	print(tag1)
-# 	print(type(tag1))
-# 	print('No. '+str(i))
-# 	i = i+1
-
-# 	# check
-# 	answer = input('''
-# Yes and continue? - type enter/n
-# No and continue? - type 'n'+enter/n
-# Quit? - type ‘q’+enter
-# ''')
-# 	if answer == "n":
-# 		continue
-# 	if answer == "q":
-# 		break
-# 	ylist.append(tag1)
-
-# save_taglist_to_local(ylist,'10_test.html')
-
 # prototype 0807-2
 for i in range(87): # 0.txt to 86.txt
 	filename = str(i)+".html"
 	html = get_html_from_local(filename)
 	soup = bs(html, features="lxml")
 	# selected content
+	#   manually: 通过观察html文件，分析出目标结点的特征（e.g. tag的class）
+	#   取出这些结点，保存为列表taglist
 	taglist = []
 	taglist.extend(soup.find_all(class_ = 'date-header')) 
 	taglist.extend(soup.find_all(class_ = 'post-title entry-title')) 
