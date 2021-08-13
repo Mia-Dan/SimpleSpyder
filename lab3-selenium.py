@@ -1,16 +1,30 @@
-from selenium import webdriver # 导入浏览器驱动
+from selenium import webdriver 
+'''
+某网课页面登陆
+2 TODO's
+'''
 
 driver = webdriver.Chrome()
-driver.implicitly_wait(10) # 若删去这句，后续可能会出现ElementNotInteractableException；因为页面元素还未加载全
-driver.get("https://cn.bing.com")
-# element = driver.find_element_by_id("sb_form") # ElementNotInteractableException
-element = driver.find_element_by_id("sb_form_q")
-element.send_keys("如何关闭微软小冰") # 模拟键盘输入 send_keys
-ele = driver.find_element_by_id("sb_form_go")
-ele.click() # 鼠标左键单击搜索按钮 # 如果每一句都设置一个断点，依次执行，这里会出现ElementNotInteractableException。原因不详。
-a = input('aaa') # just for a pause
+driver.implicitly_wait(10) 
+driver.get("http://passport2.chaoxing.com/login?refer=http%3A%2F%2Fmooc1-3.chaoxing.com%2Fvisit%2Finteraction&fid=0&newversion=true&_blank=0")
+
+driver.execute_script(f'document.getElementById("otherlogin").click();')
+
+# TODO: read account info from file
+element = driver.find_element_by_id("inputunitname")
+element.send_keys("aaaaa") 
+element = driver.find_element_by_id("uname")
+element.send_keys("aaaaa") 
+element = driver.find_element_by_id("password")
+element.send_keys("aaaaa") 
+# TODO: CAPTCHA auto fill
+element = driver.find_element_by_id("vercode")
+element.send_keys("aaaaa") 
+a = input('pause') 
+element = driver.find_element_by_id("loginBtn")
+element.click() 
+
+a = input('pause') 
 driver.close() # 关闭页面
 driver.quit() # 关闭webdriver
-
-
 
