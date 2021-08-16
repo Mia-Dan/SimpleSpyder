@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test Website</title>
+  </head>
+  <body>
+    <h1>Hello There!</h1>
+    <img src="images/bird.png" alt="test image" width="30px">
+    <p>Come in, come in! What a nice surprise - I had no idea you would be visiting today. Sorry for the mess in here, I've been building a website. Please - make yourself comfortable.</p>
+    <p></p>
+    <p>Good, good. Now let's see... where should we begin? Oh, an introduction first.</p>
+    <p></p>
+    <p>2021/08: This cite is currently under construction, and I am trying out various bits I learned - sounds like a lab - So scenes may change quickly here. Recently I've been trying:</p>
+    <ul>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+    </ul>
+
+    <form method="GET" action="/cgi/sample.cgi">
+    <input type="text" name="Field1" size="20">
+    <input type="submit" value="SEND" name="SendButton"> <input type="reset" value="RESET" name="ResetButton">
+    </form>
+    
+
+        <div id="result"></div>
+        <script>
+                document.getElementById("result").innerHTML = 
+            `<table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Grade</th>
+                        <th>GPA</th>
+                    </tr>
+                    <tr>
+                        <td>Adams</td>
+                        <td>5</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Alexander</td>
+                        <td>5</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Aaron</td>
+                        <td>5</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>Aws</td>
+                        <td>5</td>
+                        <td>3.5</td>
+                    </tr>
+                    <tr>
+                        <td>Alan</td>
+                        <td>5</td>
+                        <td>2</td>
+                    </tr>
+                </table>
+            `;
+        </script>
+
+    <p> Site Address: <a href="https://mia-dan.github.io/">https://mia-dan.github.io/</a>.</p>
+  </body>
+</html>

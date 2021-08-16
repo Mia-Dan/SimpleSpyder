@@ -75,6 +75,13 @@ def create_contents(urls):
 
 # main程序段 --------------------------------
 if __name__ == '__main__':
+    '''
+    # trying js
+    html = get_html_from_url("https://mia-dan.github.io/")
+    save_to_local(html,'1.html')
+    '''
+
+   
     # 1. 提取网页的所有链接
     # html = get_html_from_url("https://computationaltales.blogspot.com/p/stories-by-level.html")  
     html = get_html_from_local("Computational Fairy Tales Stories by Level.html") 
