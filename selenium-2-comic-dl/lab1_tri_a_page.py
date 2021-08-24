@@ -1,6 +1,6 @@
-from selenium import webdriver
+'''从dmzj下载某一页的漫画图片'''
+
 import requests
-import time
 import os
 
 def filename2dir(filename):
